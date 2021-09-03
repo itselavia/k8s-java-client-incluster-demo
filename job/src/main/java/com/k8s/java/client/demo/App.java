@@ -17,8 +17,9 @@ public final class App {
      * Says hello to the world.
      * @param args The arguments of the program.
      * @throws IOException
+     * @throws ApiException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ApiException {
         ApiClient client = ClientBuilder.cluster().build();
         Configuration.setDefaultApiClient(client);
 
@@ -51,12 +52,8 @@ public final class App {
             .endSpec()
           .build();
 
-          try {
-            V1Job createdJob = api.createNamespacedJob(namespace, body, null, null, null);
+          V1Job createdJob = api.createNamespacedJob(namespace, body, null, null, null);
             System.out.println(createdJob.toString());
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
         
         
     }
